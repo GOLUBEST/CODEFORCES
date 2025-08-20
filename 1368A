@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+#define ll long long int
+using namespace std;
+
+int main()
+{
+    ll t = 1;
+    cin >> t;
+    while (t--) 
+    {
+        ll a, b, n;
+        cin >> a >> b >> n;
+    
+        ll sum = 0, count = 0;
+    
+        while (sum <= n)
+        {
+            if (a > b)
+            {
+                b += a;
+                sum = b;
+                count++;
+            }
+            else
+            {
+                a += b;
+                sum = a;
+                count++;
+            }
+    
+            if (sum > n)
+                break;
+        }
+    
+        cout << count << endl;
+    }
+
+}
