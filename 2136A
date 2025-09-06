@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int t;
+    cin >> t;
+    
+    while(t--){
+        int a , b , c , d;
+        cin >> a >> b >> c >> d;
+
+        int e , f;
+        e = c-a;
+        f = d-b;
+
+        if(a>b){
+            if((b*2 + 2) < a){
+                cout << "NO" << endl;
+                continue;
+            }
+        }
+        else{
+            if((a*2 + 2) < b){
+                cout << "NO" << endl;
+                continue;
+            }
+        }
+
+        if(e>f){
+            if((f*2 + 2) < e){
+                cout << "NO" << endl;
+                continue;
+            }
+        }
+        else{
+            if((e*2 + 2) < f){
+                cout << "NO" << endl;
+                continue;
+            }
+        }
+        cout << "YES" << endl;
+    }
+}
