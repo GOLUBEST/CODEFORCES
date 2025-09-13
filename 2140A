@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
+    int t;
+    cin >> t;
+    
+    while(t--) {
+        int n;
+        cin >> n;
+        
+        vector<vector<int>> arrays(n);
+        
+        for(int i = 0; i < n; i++) {
+            int k;
+            cin >> k;
+            arrays[i].resize(k);
+            for(int j = 0; j < k; j++) {
+                cin >> arrays[i][j];
+            }
+        }
+        
+        // Find lexicographically minimum array
+        // After gravity simulation, the bottom row will be the array that was placed at the bottom
+        // To get lexicographically minimum bottom row, we should place the lexicographically minimum array at the bottom
+        sort(arrays.begin(), arrays.end());
+        
+        // Output the lexicographically minimum array
+        for(int i = 0; i < arrays[0].size(); i++) {
+            if(i > 0) cout << " ";
+            cout << arrays[0][i];
+        }
+        cout << "\n";
+    }
+    
+    return 0;
+}
