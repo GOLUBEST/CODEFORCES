@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, k;
+        cin >> n >> k;
+        string s;
+        cin >> s;
+
+        int totalB = 0;
+        for (char c : s) if (c == 'B') totalB++;
+
+        if (totalB == 0) {
+            cout << 0 << "\n";
+            continue;
+        }
+
+        int windowB = 0;
+        for (int i = 0; i < k; i++) {
+            if (s[i] == 'B') windowB++;
+        }
+        int maxB = windowB;
+
+        for (int i = k; i < n; i++) {
+            if (s[i] == 'B') windowB++;
+            if (s[i - k] == 'B') windowB--;
+            maxB = max(maxB, windowB);
+        }
+
+        cout << totalB - maxB << "\n";
+    }
+    return 0;
+}
