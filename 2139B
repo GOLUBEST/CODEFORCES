@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int T;
+    if (!(cin >> T)) return 0;
+    while (T--) {
+        int n;
+        long long m;
+        cin >> n >> m;
+        vector<long long> a(n);
+        for (int i = 0; i < n; ++i) cin >> a[i];
+        
+        sort(a.begin(), a.end(), greater<long long>());
+        
+        long long best = 0;
+        long long current = 0;
+        int limit = (int)min<long long>(n, m);
+        for (int k = 1; k <= limit; ++k) {
+            current += a[k-1] * (m - (k - 1));
+            best = max(best, current);
+        }
+        cout << best << "\n";
+    }
+    return 0;
+}
