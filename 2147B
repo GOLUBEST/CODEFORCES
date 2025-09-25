@@ -1,0 +1,20 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int T;
+    if(!(cin >> T)) return 0;
+    while (T--) {
+        int n;
+        cin >> n;
+        for (int x = n; x >= 1; --x) {
+            cout << x << ' ';
+        }
+        if (n > 0) cout << n << ' ';
+        for (int x = 1; x <= n - 1; ++x) {
+            cout << x << (x == n - 1 ? '\n' : ' ');
+        }
+        if (n == 1) cout << '\n';
+    }
+    return 0;
+}
