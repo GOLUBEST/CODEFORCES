@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    if (!(cin >> t)) return 0;
+    while (t--) {
+        long long a1, a2, a4, a5;
+        cin >> a1 >> a2 >> a4 >> a5;
+
+        long long x = a1 + a2;   // a3 to satisfy a3 = a1 + a2 (i=1)
+        long long y = a4 - a2;   // a3 to satisfy a4 = a2 + a3 (i=2)
+        long long z = a5 - a4;   // a3 to satisfy a5 = a3 + a4 (i=3)
+
+        int ans = 1;
+        if (x == y && y == z) ans = 3;
+        else if (x == y || x == z || y == z) ans = 2;
+
+        cout << ans << '\n';
+    }
+    return 0;
+}
