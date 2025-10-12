@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int t;
+    if (!(cin >> t)) return 0;
+    while (t--) {
+        int n;
+        cin >> n;
+
+        int a = max(1, n - 52);
+        int rem = n - a;
+        int b = max(1, rem - 26);
+        int c = rem - b;
+
+        string s;
+        s += char('a' + a - 1);
+        s += char('a' + b - 1);
+        s += char('a' + c - 1);
+
+        cout << s << '\n';
+    }
+    return 0;
+}
