@@ -1,0 +1,20 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int N;
+    if (!(cin >> N)) return 0;
+    bool hasZero = false;
+    int minAbs = INT_MAX;
+    for (int i = 0; i < N; ++i) {
+        long long x;
+        cin >> x;
+        if (x == 0) hasZero = true;
+        minAbs = min(minAbs, (int)llabs(x));
+    }
+    cout << (hasZero ? 0 : minAbs) << "\n";
+    return 0;
+}
