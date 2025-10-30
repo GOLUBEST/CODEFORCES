@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t;
+    if(!(cin >> t)) return 0;
+    while(t--) {
+        int x, y;
+        cin >> x >> y;
+        int screens_for_2x2 = (y + 1) / 2;
+        int free_cells = (y / 2) * 7 + (y % 2) * 11;
+        int remaining_ones = max(0, x - free_cells);
+        int extra_screens_for_ones = (remaining_ones + 14) / 15;
+        int ans = screens_for_2x2 + extra_screens_for_ones;
+        cout << ans << '\n';
+    }
+    return 0;
+}
