@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t;
+    if (!(cin >> t)) return 0;
+    while (t--) {
+        long long a,b,c,d;
+        cin >> a >> b >> c >> d;
+        long long p = d - b;
+        if (p < 0) {
+            cout << -1 << '\n';
+            continue;
+        }
+        long long q = p - (c - a);
+        if (q < 0) {
+            cout << -1 << '\n';
+            continue;
+        }
+        cout << (p + q) << '\n';
+    }
+    return 0;
+}
