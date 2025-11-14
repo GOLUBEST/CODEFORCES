@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t;
+    if (!(cin >> t)) return 0;
+    while (t--) {
+        int n, x;
+        cin >> n >> x;
+        vector<int> a(n);
+        for (int i = 0; i < n; ++i) cin >> a[i];
+        int l = -1, r = -1;
+        for (int i = 0; i < n; ++i) if (a[i] == 1) { if (l == -1) l = i; r = i; }
+        // There is guaranteed to be at least one '1' per statement.
+        if (r - l + 1 <= x) cout << "YES\n"; 
+        else cout << "NO\n";
+    }
+    return 0;
+}
