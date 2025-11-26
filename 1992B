@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int t;
+    if (!(cin >> t)) return 0;
+    while (t--) {
+        long long n;
+        int k;
+        cin >> n >> k;
+        vector<long long> a(k);
+        for (int i = 0; i < k; ++i) cin >> a[i];
+        
+        long long cnt1 = 0;
+        vector<long long> costs; // cost to fully split a non-one piece into ones (L - 1)
+        costs.reserve(k);
+        for (long long x : a) {
+            if (x == 1) cnt1++;
+            else costs.push_back(x - 1);
+        }
+        
+        long long need = (k - 1) - cnt1; // bonuses needed
+        if (need <= 0) {
+            // Already have enough 1s to perform k-1 merges without any splits
+            cout << (k - 1) << "\n";
+            continue;
+        }
+        
+        // Sort costs and pick the smallest 'need' items
+        sort(costs.begin(), costs.end());
+        long long s = 0;
+        for (int i = 0; i < need; ++i) {
+            s += costs[i];
+        }
+        
+        long long ans = (k - 1) + 2 * s;
+        cout << ans << "\n";
+    }
+    return 0;
+}
