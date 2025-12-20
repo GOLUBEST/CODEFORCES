@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n , k , p;
+        cin >> n >> k >> p;
+
+        int div = abs(k/p);
+
+        if(k%p != 0){
+            div += 1;
+        }
+
+        if(n>=div){
+            cout << div << endl;
+        }
+        else{
+            cout << -1 << endl;
+        }
+        
+    }
+
+    return 0;
+}
