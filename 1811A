@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    if (!(cin >> t)) return 0;
+    while (t--) {
+        int n, d;
+        string s;
+        cin >> n >> d >> s;
+
+        string ans;
+        ans.reserve(n + 1);
+        bool inserted = false;
+        char dd = char('0' + d);
+
+        for (char c : s) {
+            if (!inserted && (c - '0') < d) {
+                ans.push_back(dd);
+                inserted = true;
+            }
+            ans.push_back(c);
+        }
+        if (!inserted) ans.push_back(dd);
+
+        cout << ans << '\n';
+    }
+    return 0;
+}
