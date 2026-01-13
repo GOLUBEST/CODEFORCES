@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    if (!(cin >> t)) return 0;
+    while (t--) {
+        int n;
+        string s;
+        cin >> n >> s;
+
+        bool used[7][7] = {false};
+        int cnt = 0;
+        for (int i = 0; i + 1 < n; ++i) {
+            int u = s[i] - 'a';
+            int v = s[i + 1] - 'a';
+            if (!used[u][v]) {
+                used[u][v] = true;
+                ++cnt;
+            }
+        }
+        cout << cnt << "\n";
+    }
+    return 0;
+}
