@@ -1,0 +1,30 @@
+//1560B
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int a,b,c;
+        cin >> a >> b >> c;
+        int diff = abs(a - b);
+
+        if(c > diff * 2){
+            cout << -1 << endl;
+            continue;
+        }
+        if(!(a >= b*2 || b >= a*2)){
+            cout << -1 << endl;
+            continue;
+        }
+        if(c <= diff) {
+            cout << c + diff << endl;
+        }
+        else{
+            cout << c - diff << endl;
+        }
+    }
+}
