@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t; 
+    cin >> t;
+    while (t--) {
+        string s;
+        cin >> s;
+
+        int n = stoi(s);
+        if (n % 7 == 0) {                 // already ok
+            cout << n << "\n";
+            continue;
+        }
+
+        int L = (int)s.size();
+        int best = -1, bestDiff = 10;
+
+        for (int x = 10; x <= 999; x++) { // try all multiples of 7
+            if (x % 7) continue;
+            string y = to_string(x);
+            if ((int)y.size() != L) continue; // keep same length (no leading zeros)
+
+            int diff = 0;
+            for (int i = 0; i < L; i++)
+                if (s[i] != y[i]) diff++;
+
+            if (diff < bestDiff) {
+                bestDiff = diff;
+                best = x;
+            }
+        }
+
+        cout << best << "\n";
+    }
+}
