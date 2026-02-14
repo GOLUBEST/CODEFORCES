@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        long long x;
+        cin >> n >> x;
+
+        __int128 freeSum = 0;          // can be big, use int128
+        long long best = LLONG_MIN;    // best block gain per rollback
+
+        for (int i = 0; i < n; i++) {
+            long long a, b, c;
+            cin >> a >> b >> c;
+
+            // free progress with 0 rollbacks for this type
+            __int128 free_i = (__int128)(b - 1) * a;
+            freeSum += free_i;
+
+            // progress per 1 rollback block
+            // d_i = b*a - c  (can be negative)
+            long long d = (long long)((__int128)b * a - c);
+            best = max(best, d);
+        }
+
+        if (freeSum >= x) {
+            cout << 0 << "\n";
+            continue;
+        }
+
+        long long need = (long long)((__int128)x - freeSum); // positive, fits in int128 earlier
+        if (best <= 0) {
+            cout << -1 << "\n";
+            continue;
+        }
+
+        // ceil(need / best)
+        long long k = (need + best - 1) / best;
+        cout << k << "\n";
+    }
+    return 0;
+}
