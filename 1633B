@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        string s;
+        cin >> s;
+
+        int Z = 0, O = 0;
+        for (char c : s) {
+            if (c == '0') Z++;
+            else O++;
+        }
+
+        if (Z == 0 || O == 0) {
+            cout << 0 << "\n";
+        } else if (Z == O) {
+            cout << Z - 1 << "\n";
+        } else {
+            cout << min(Z, O) << "\n";
+        }
+    }
+    return 0;
+}
