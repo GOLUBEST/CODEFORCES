@@ -1,0 +1,17 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long A, B;
+    cin >> A >> B;
+
+    long long m = min(A, B);
+    long long ans = 1;
+    for (long long i = 2; i <= m; i++) ans *= i;
+
+    cout << ans << "\n";
+    return 0;
+}
