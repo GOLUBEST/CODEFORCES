@@ -1,0 +1,44 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        cin >> n;
+
+        vector<int> ones;
+
+        for(int i = 0; i < n; i++) {
+            string row;
+            cin >> row;
+
+            int count = 0;
+            for(char c : row) {
+                if(c == '1') count++;
+            }
+
+            if(count > 0) 
+                ones.push_back(count);
+        }
+
+        bool square = true;
+
+        for(int i = 1; i < ones.size(); i++) {
+            if(ones[i] != ones[0]) {
+                square = false;
+                break;
+            }
+        }
+
+        if(square) 
+            cout << "SQUARE\n";
+        else 
+            cout << "TRIANGLE\n";
+    }
+
+    return 0;
+}
