@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int t;
+    if (!(cin >> t)) return 0;
+    while (t--) {
+        int n;
+        cin >> n;
+        int total = n * n;
+        vector<int> freq(total + 1, 0);
+        for (int i = 0; i < total; ++i) {
+            int x; cin >> x;
+            if (x >= 1 && x <= total) ++freq[x];
+        }
+        bool ok = true;
+        long long limit = 1LL * n * (n - 1);
+        for (int c = 1; c <= total; ++c) {
+            if (freq[c] > limit) { ok = false; break; }
+        }
+        cout << (ok ? "YES\n" : "NO\n");
+    }
+    return 0;
+}
