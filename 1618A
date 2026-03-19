@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int b1,b2,b3,b4,b5,b6,b7;
+        cin >> b1 >> b2 >> b3 >> b4 >> b5 >> b6 >> b7;
+
+        if(b1+b2+b3 == b7) {
+            cout << b1 << " " << b2 << " " << b3 << endl; 
+        }
+        else{
+            cout << b1 << " " << b2 << " " << b4 << endl;
+        }
+    }
+
+    return 0;
+}
