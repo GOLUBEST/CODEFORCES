@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n ,  f , k;
+        cin >> n >> f >> k;
+
+        vector<int> arr(n);
+        for(int i = 0 ; i < n ; i++) {
+            cin >> arr[i];
+        }
+
+        int fav = arr[f-1]; 
+
+        sort(arr.begin() , arr.end());
+        reverse(arr.begin() , arr.end());
+
+        int find = 0;
+        for(int i = 0 ; i < k ; i++) {
+            if(arr[i] == fav){
+                find = 1;
+                break;
+            }
+        }
+
+        if(find == 0) {
+            cout << "NO" << endl;
+            continue;
+        }
+        int cnt = 0;
+        for(int i = k ; i < n ; i++) {
+            if(arr[i] == fav) {
+                cout << "MAYBE" << endl;
+                cnt = 1;
+                break;
+            }
+        }
+        if(!cnt){
+            cout << "YES" << endl;
+        }
+    }
+
+    return 0;
+}
