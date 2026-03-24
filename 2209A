@@ -1,0 +1,50 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+void solve() {
+    int n;
+    long long c, k;
+    cin >> n >> c >> k;
+    vector<long long> a(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    
+    // Sort the monsters by their initial combat power.
+    // It's always optimal to fight the easiest monsters first,
+    // as it minimizes the required combat power to defeat them
+    // and maximizes the number of flip-flops we can throw.
+    sort(a.begin(), a.end());
+    
+    for (int i = 0; i < n; i++) {
+        // Only fight if we have enough combat power
+        if (c >= a[i]) {
+            // Throw as many flip-flops as possible to maximize the reward.
+            // The maximum we can throw on this monster is c - a[i].
+            long long f = min(k, c - a[i]);
+            k -= f;
+            c += a[i] + f; // Reward is the monster's new combat power
+        } else {
+            // If we can't defeat this one, we can't defeat any subsequent (stronger) ones.
+            break;
+        }
+    }
+    
+    cout << c << "\n";
+}
+
+int main() {
+    // Fast I/O
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
+    int t;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+    return 0;
+}
