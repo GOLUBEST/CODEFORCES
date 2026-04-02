@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n;
+        string s;
+        cin >> n >> s;
+
+        string a;
+        int i = 0;
+
+        while (i < n) {
+            char c = s[i];
+            a += c;      // this is a character from original string
+
+            i++;         // move past first occurrence
+            while (i < n && s[i] != c) i++; // skip inserted different chars
+            i++;         // move past matching repeated occurrence
+        }
+
+        cout << a << '\n';
+    }
+
+    return 0;
+}
