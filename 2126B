@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n, k;
+        cin >> n >> k;
+
+        vector<int> a(n + 1);
+        for (int i = 1; i <= n; i++) cin >> a[i];
+
+        vector<int> pref(n + 1, 0);
+        for (int i = 1; i <= n; i++) {
+            pref[i] = pref[i - 1] + a[i];
+        }
+
+        int hikes = 0;
+        int i = 1;
+
+        while (i + k - 1 <= n) {
+            int l = i, r = i + k - 1;
+=
+            int rainy = pref[r] - pref[l - 1];
+            if (rainy == 0) {
+                hikes++;
+                i = r + 2;
+            } else {
+                i++;
+            }
+        }
+
+        cout << hikes << '\n';
+    }
+
+    return 0;
+}
