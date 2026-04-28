@@ -1,0 +1,48 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void solve() {
+    int n;
+    cin >> n;
+    
+    long long sum_gt_1 = 0;
+    int last_gt_1_idx = -1;
+    bool has_1 = false;
+    int last_1_idx = -1;
+    
+    for (int i = 0; i < n; ++i) {
+        long long x;
+        cin >> x;
+        if (x > 1) {
+            sum_gt_1 += x;
+            last_gt_1_idx = i;
+        } else if (x == 1) {
+            has_1 = true;
+            last_1_idx = i;
+        }
+    }
+    
+    long long ans = sum_gt_1;
+    if (has_1) {
+        if (last_gt_1_idx == -1 || last_1_idx > last_gt_1_idx) {
+            ans += 1;
+        }
+    }
+    
+    cout << ans % 10000 << "\n";
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
+    int t;
+    if (cin >> t) {
+        while (t--) {
+            solve();
+        }
+    }
+    return 0;
+}
