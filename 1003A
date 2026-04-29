@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<int> a(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    
+    sort(a.begin(), a.end());
+    
+    int cnt = 1, max_cnt = 1;
+
+    int b = a[0];
+    for (int i = 1; i < n; i++) {
+        if(a[i] == b) {
+            cnt++;
+        }
+        else {
+            max_cnt = max(max_cnt, cnt);
+            cnt = 1;
+            b = a[i];
+        }
+    }
+    
+    cout << max(max_cnt, cnt) << endl;
+    
+    return 0;
+}
