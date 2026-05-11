@@ -7,34 +7,42 @@ void solve() {
     int n;
     cin >> n;
     
+    vector<int> a(n);
     long long sum_gt_1 = 0;
     int last_gt_1_idx = -1;
-    bool has_1 = false;
-    int last_1_idx = -1;
     
+    // Read the array and calculate the sum of elements > 1
     for (int i = 0; i < n; ++i) {
-        long long x;
-        cin >> x;
-        if (x > 1) {
-            sum_gt_1 += x;
-            last_gt_1_idx = i;
-        } else if (x == 1) {
-            has_1 = true;
-            last_1_idx = i;
+        cin >> a[i];
+        if (a[i] > 1) {
+            sum_gt_1 += a[i];
+            last_gt_1_idx = i; // Keep track of the rightmost element > 1
         }
     }
     
     long long ans = sum_gt_1;
-    if (has_1) {
-        if (last_gt_1_idx == -1 || last_1_idx > last_gt_1_idx) {
-            ans += 1;
+    
+    // Check if there are any '1's strictly after the last element > 1
+    // (If the array has no elements > 1, last_gt_1_idx remains -1, scanning the whole array)
+    bool trailing_ones = false;
+    for (int i = last_gt_1_idx + 1; i < n; ++i) {
+        if (a[i] == 1) {
+            trailing_ones = true;
+            break;
         }
     }
     
-    cout << ans % 10000 << "\n";
+    // If there are trailing 1s, they add exactly 1 to the total cost
+    if (trailing_ones) {
+        ans += 1;
+    }
+    
+    // Output the result modulo 676767677 as requested by the problem
+    cout << ans % 676767677 << "\n";
 }
 
 int main() {
+    // Optimize standard I/O operations for competitive programming
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     
