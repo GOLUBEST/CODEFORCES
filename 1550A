@@ -1,0 +1,36 @@
+#include <iostream>
+
+using namespace std;
+
+void solve() {
+    long long s;
+    cin >> s;
+    
+    // We use binary search to efficiently find the smallest n such that n * n >= s
+    long long low = 1, high = 1e9, ans = 1;
+    while (low <= high) {
+        long long mid = low + (high - low) / 2;
+        if (mid * mid >= s) {
+            ans = mid;       // mid is a valid size, but let's try to find a smaller one
+            high = mid - 1;
+        } else {
+            low = mid + 1;   // mid is too small
+        }
+    }
+    
+    cout << ans << "\n";
+}
+
+int main() {
+    // Fast I/O operations
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
+    int t;
+    if (cin >> t) {
+        while (t--) {
+            solve();
+        }
+    }
+    return 0;
+}
