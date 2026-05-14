@@ -1,0 +1,42 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+void solve() {
+    int n, k;
+    cin >> n >> k;
+    string s;
+    cin >> s;
+    
+    int operations = 0;
+    
+    // Iterate through the string
+    for (int i = 0; i < n; ) {
+        if (s[i] == 'B') {
+            // Found a black cell, we must use an operation here
+            operations++;
+            // Skip the next k cells as they will all be turned white
+            i += k;
+        } else {
+            // It's already white, just move to the next cell
+            i++;
+        }
+    }
+    
+    cout << operations << "\n";
+}
+
+int main() {
+    // Fast I/O
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
+    int t;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+    
+    return 0;
+}
