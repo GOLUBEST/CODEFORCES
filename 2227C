@@ -1,0 +1,50 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void solve() {
+    int n;
+    cin >> n;
+    
+    // Group vectors for our 4 classifications
+    vector<int> v2, v3, v6, v0;
+    
+    for (int i = 0; i < n; ++i) {
+        int x;
+        cin >> x;
+        
+        // Categorize elements based on divisibility
+        if (x % 6 == 0) {
+            v6.push_back(x);
+        } else if (x % 2 == 0) {
+            v2.push_back(x);
+        } else if (x % 3 == 0) {
+            v3.push_back(x);
+        } else {
+            v0.push_back(x);
+        }
+    }
+    
+    // Output in the optimal arranged order
+    for (int x : v2) cout << x << " ";
+    for (int x : v0) cout << x << " ";
+    for (int x : v3) cout << x << " ";
+    for (int x : v6) cout << x << " ";
+    
+    cout << "\n";
+}
+
+int main() {
+    // Optimize standard I/O operations for performance
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
+    int t;
+    if (cin >> t) {
+        while (t--) {
+            solve();
+        }
+    }
+    return 0;
+}
