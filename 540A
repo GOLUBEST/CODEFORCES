@@ -1,0 +1,31 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    // Fast I/O
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int n;
+    cin >> n;
+    
+    string original, target;
+    cin >> original >> target;
+    
+    int min_moves = 0;
+    for (int i = 0; i < n; ++i) {
+        // Calculate the absolute difference between the digits
+        int diff = abs(original[i] - target[i]);
+        
+        // Add the minimum of direct distance or wrap-around distance
+        min_moves += min(diff, 10 - diff);
+    }
+    
+    cout << min_moves << "\n";
+    
+    return 0;
+}
