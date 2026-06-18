@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int gcd(int a, int b) {
+    while (b) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int t;
+    cin >> t;
+    
+    while (t--) {
+        int n, k;
+        cin >> n >> k;
+        
+        string s;
+        cin >> s;
+        
+        int g = gcd(n, k);
+        
+        bool possible = true;
+        
+        for (int start = 0; start < g; start++) {
+            int count_ones = 0;
+
+            for (int pos = start; pos < n; pos += k) {
+                if (s[pos] == '1') {
+                    count_ones++;
+                }
+            }
+            if (count_ones % 2 == 1) {
+                possible = false;
+                break;
+            }
+        }
+        
+        if (possible) {
+            cout << "YES\n";
+        } else {
+            cout << "NO\n";
+        }
+    }
+    
+    return 0;
+}
