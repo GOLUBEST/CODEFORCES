@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, c;
+        cin >> n >> c;
+
+        vector<int> a(n), b(n);
+        for (int &x : a) cin >> x;
+        for (int &x : b) cin >> x;
+
+        const long long INF = (long long)4e18;
+        long long ans = INF;
+
+        bool okNoReorder = true;
+        long long costNoReorder = 0;
+        for (int i = 0; i < n; i++) {
+            if (a[i] < b[i]) {
+                okNoReorder = false;
+                break;
+            }
+            costNoReorder += (a[i] - b[i]);
+        }
+        if (okNoReorder) ans = min(ans, costNoReorder);
+
+        vector<int> sa = a, sb = b;
+        sort(sa.begin(), sa.end());
+        sort(sb.begin(), sb.end());
+
+        bool okReorder = true;
+        long long costReorder = c;
+        for (int i = 0; i < n; i++) {
+            if (sa[i] < sb[i]) {
+                okReorder = false;
+                break;
+            }
+            costReorder += (sa[i] - sb[i]);
+        }
+        if (okReorder) ans = min(ans, costReorder);
+
+        if (ans == INF) cout << -1 << '\n';
+        else cout << ans << '\n';
+    }
+
+    return 0;
+}
