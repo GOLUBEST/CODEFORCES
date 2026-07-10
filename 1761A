@@ -12,15 +12,12 @@ int main() {
         int n, a, b;
         cin >> n >> a >> b;
 
-        if (n == 1 && a == 1 && b == 1) {
+        if (a == n && b == n)
             cout << "Yes\n";
-        }
-        else if (a + b <= n - 2) {
+        else if (a < n && b < n && n - a - b >= 2)
             cout << "Yes\n";
-        }
-        else {
+        else
             cout << "No\n";
-        }
     }
 
     return 0;
