@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        string s;
+        cin >> s;
+        int n = (int)s.size();
+
+        bool hasEqualAdjacent = false;
+        for (int i = 0; i + 1 < n; ++i) {
+            if (s[i] == s[i + 1]) {
+                hasEqualAdjacent = true;
+                break;
+            }
+        }
+
+        cout << (hasEqualAdjacent ? 1 : n) << '\n';
+    }
+
+    return 0;
+}
