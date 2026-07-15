@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        string s;
+        cin >> n >> s;
+
+        int best = 0;
+        int i = 0;
+
+        while (i < n) {
+            if (s[i] == '#') {
+                int j = i;
+                while (j < n && s[j] == '#') j++;
+                int len = j - i;
+                best = max(best, (len + 1) / 2);
+
+                i = j;
+            } else {
+                i++;
+            }
+        }
+
+        cout << best << '\n';
+    }
+
+    return 0;
+}
