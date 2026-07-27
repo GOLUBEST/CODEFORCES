@@ -1,0 +1,72 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n, k;
+        cin >> n >> k;
+
+        int z = n / 2;          // number of 0s
+        int o = n - z;          // number of 1s (>= z)
+
+        // Let groups of 0s = a, groups of 1s = b.
+        // Total equal-adjacent pairs:
+        // k = (z-a) + (o-b) = n - (a+b)
+        int g = n - k; // total groups
+
+        // For alternating groups of two symbols, |a-b| <= 1 and a+b = g.
+        int a = g / 2;      // tentative groups of 0s
+        int b = g - a;      // tentative groups of 1s
+
+        // Need feasible group counts:
+        // 1 <= a <= z, 1 <= b <= o, |a-b| <= 1
+        if (g < 2 || g > n || abs(a - b) > 1 || a < 1 || b < 1 || a > z || b > o) {
+            cout << -1 << '\n';
+            continue;
+        }
+
+        // Build lengths of each group (all >=1), summing to z and o.
+        vector<int> len0(a, 1), len1(b, 1);
+        int rem0 = z - a, rem1 = o - b;
+        len0[0] += rem0; // dump extras into first group
+        len1[0] += rem1;
+
+        string s;
+        s.reserve(n);
+
+        // Start with symbol having more groups (or either if equal)
+        bool startOne = (b >= a);
+
+        int i0 = 0, i1 = 0;
+        bool cur = startOne; // true -> '1', false -> '0'
+
+        while (i0 < a || i1 < b) {
+            if (cur) {
+                if (i1 >= b) { cout << -1 << '\n'; goto next_case; }
+                s.append(len1[i1], '1');
+                i1++;
+            } else {
+                if (i0 >= a) { cout << -1 << '\n'; goto next_case; }
+                s.append(len0[i0], '0');
+                i0++;
+            }
+            cur = !cur;
+        }
+
+        if ((int)s.size() != n) {
+            cout << -1 << '\n';
+        } else {
+            cout << s << '\n';
+        }
+
+        next_case:;
+    }
+
+    return 0;
+}
