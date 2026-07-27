@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using int64 = long long;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        int64 a, b, x;
+        cin >> a >> b >> x;
+
+        vector<pair<int64,int>> va, vb; // {value after k divisions, k}
+        {
+            int64 cur = a;
+            int k = 0;
+            while (true) {
+                va.push_back({cur, k});
+                if (cur == 0) break;
+                cur /= x;
+                ++k;
+            }
+        }
+        {
+            int64 cur = b;
+            int k = 0;
+            while (true) {
+                vb.push_back({cur, k});
+                if (cur == 0) break;
+                cur /= x;
+                ++k;
+            }
+        }
+
+        int64 ans = (1LL << 62);
+
+        // O(log a * log b), at most about 31*31 for x>=2 and a,b<=1e9
+        for (auto &pa : va) {
+            int64 v1 = pa.first;
+            int64 c1 = pa.second;
+            for (auto &pb : vb) {
+                int64 v2 = pb.first;
+                int64 c2 = pb.second;
+                int64 target = max(v1, v2);
+                int64 cost = c1 + c2 + (target - v1) + (target - v2);
+                if (cost < ans) ans = cost;
+            }
+        }
+
+        cout << ans << '\n';
+    }
+
+    return 0;
+}
