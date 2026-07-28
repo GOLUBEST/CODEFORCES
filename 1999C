@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n;
+        long long s, m;
+        cin >> n >> s >> m;
+
+        long long prevEnd = 0;
+        bool ok = false;
+
+        for (int i = 0; i < n; ++i) {
+            long long l, r;
+            cin >> l >> r;
+
+            if (l - prevEnd >= s) ok = true;
+
+            prevEnd = r;
+        }
+
+        if (m - prevEnd >= s) ok = true;
+
+        cout << (ok ? "YES" : "NO") << '\n';
+    }
+
+    return 0;
+}
