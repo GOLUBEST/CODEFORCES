@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m;
+        string x, s;
+        cin >> n >> m >> x >> s;
+
+        int ans = -1;
+        for (int op = 0; op <= 10; op++) {
+            if (x.find(s) != string::npos) {
+                ans = op;
+                break;
+            }
+            x += x;
+        }
+
+        cout << ans << '\n';
+    }
+
+    return 0;
+}
