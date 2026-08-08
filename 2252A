@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        vector<int> a(n);
+
+        long long sumAll = 0;
+        unordered_map<int, int> cnt;
+        for (int i = 0; i < n; i++) {
+            cin >> a[i];
+            sumAll += a[i];
+            cnt[a[i]]++;
+        }
+
+        int mx = 0;
+        for (auto &p : cnt) mx = max(mx, p.second);
+
+        if (mx <= n - mx + 1) {
+            cout << sumAll << '\n';
+            continue;
+        }
+
+        long long ans = 0;
+        for (auto &p : cnt) {
+            int v = p.first;
+            int c = p.second;
+            if (c != mx) continue;
+
+            int others = n - c;
+            long long sumNonV = sumAll - 1LL * c * v;
+            long long cur = sumNonV + 1LL * (others + 2) * v;
+            ans = max(ans, cur);
+        }
+
+        cout << ans << '\n';
+    }
+
+    return 0;
+}
