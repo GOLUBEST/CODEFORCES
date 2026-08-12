@@ -1,0 +1,91 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int TestsNumT;
+    cin >> TestsNumT;
+
+    while (TestsNumT--) {
+        int n;
+        cin >> n;
+
+        vector<int> a(n);
+        for (int &x : a) cin >> x;
+
+        vector<int> pref(n + 1), suff(n + 1);
+
+        int last = -1;
+        for (int i = 0; i < n; ++i) {
+            pref[i + 1] = pref[i];
+            if (a[i] != last) {
+                ++pref[i + 1];
+                last = a[i];
+            }
+        }
+
+        last = -1;
+        for (int i = n - 1; i >= 0; --i) {
+            suff[i] = suff[i + 1];
+            if (a[i] != last) {
+                ++suff[i];
+                last = a[i];
+            }
+        }
+
+        vector<int> runStart, runEnd, runId(n);
+
+        for (int i = 0; i < n;) {
+            int j = i;
+            while (j + 1 < n && a[j + 1] == a[i]) ++j;
+
+            int id = runStart.size();
+            runStart.push_back(i);
+            runEnd.push_back(j);
+
+            for (int k = i; k <= j; ++k)
+                runId[k] = id;
+
+            i = j + 1;
+        }
+
+        int ans = pref[n];
+
+        for (int i = 0; i < n; ++i) {
+            int x = a[i];
+            int previous = (i > 0 ? a[i - 1] : -1);
+
+            int r = runId[i] + 1;
+            int taken = 0;
+
+            while (r < (int)runStart.size() && taken < 3) {
+                int s = runStart[r];
+                int e = runEnd[r];
+                int y = a[s];
+
+                if (y != x) {
+                    int penalty = 0;
+
+                    if (i > 0 && previous == y)
+                        ++penalty;
+
+                    if (e == s && e + 1 < n && a[e + 1] == x)
+                        ++penalty;
+
+                    int cur = pref[i] + 2 + suff[s + 1] - penalty;
+                    ans = max(ans, cur);
+
+                    ++taken;
+                }
+
+                ++r;
+            }
+        }
+
+        cout << ans << '\n';
+    }
+
+    return 0;
+}
