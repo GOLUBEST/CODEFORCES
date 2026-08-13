@@ -1,0 +1,93 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+
+const ll MOD = 998244353;
+const int MAXN = 1000000;
+
+ll fact[MAXN + 1], invFact[MAXN + 1];
+
+ll modPow(ll a, ll b) {
+    ll res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a % MOD;
+        a = a * a % MOD;
+        b >>= 1;
+    }
+    return res;
+}
+
+ll C(int n, int r) {
+    if (r < 0 || r > n)
+        return 0;
+
+    return fact[n] * invFact[r] % MOD * invFact[n - r] % MOD;
+}
+
+// Number of ways to split x items into r positive parts.
+ll ways(int x, int r) {
+    if (r == 0)
+        return (x == 0 ? 1 : 0);
+
+    if (x < r)
+        return 0;
+
+    return C(x - 1, r - 1);
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    // Precompute factorials.
+    fact[0] = 1;
+    for (int i = 1; i <= MAXN; i++)
+        fact[i] = fact[i - 1] * i % MOD;
+
+    invFact[MAXN] = modPow(fact[MAXN], MOD - 2);
+
+    for (int i = MAXN; i >= 1; i--)
+        invFact[i - 1] = invFact[i] * i % MOD;
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n;
+        string s;
+
+        cin >> n >> s;
+
+        int ones = 0;
+        for (char c : s)
+            ones += (c == '1');
+
+        int zeros = n - ones;
+
+        // Count transitions.
+        int d = 0;
+        for (int i = 1; i < n; i++) {
+            if (s[i] != s[i - 1])
+                d++;
+        }
+
+        int oneRuns, zeroRuns;
+
+        if (s[0] == '0') {
+            zeroRuns = (d + 2) / 2;
+            oneRuns = (d + 1) / 2;
+        } else {
+            oneRuns = (d + 2) / 2;
+            zeroRuns = (d + 1) / 2;
+        }
+
+        ll ans = ways(ones, oneRuns);
+        ans = ans * ways(zeros, zeroRuns) % MOD;
+
+        cout << ans << '\n';
+    }
+
+    return 0;
+}
