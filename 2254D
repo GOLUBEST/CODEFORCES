@@ -1,0 +1,90 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using int64 = long long;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n;
+        cin >> n;
+
+        vector<int64> b(n);
+        for (auto &x : b) cin >> x;
+
+        map<int64, int> cnt;
+        for (auto x : b) cnt[x]++;
+
+        vector<int64> vals;
+        vector<int> freq;
+
+        for (auto &[x, c] : cnt) {
+            vals.push_back(x);
+            freq.push_back(c);
+        }
+
+        if (vals[0] != 0) {
+            cout << -1 << '\n';
+            continue;
+        }
+
+        int k = vals.size();
+        vector<int64> x(k);
+        bool ok = true;
+
+        for (int i = 0; i + 1 < k; ++i) {
+            int64 diff = vals[i + 1] - vals[i];
+
+            if (diff % freq[i] != 0) {
+                ok = false;
+                break;
+            }
+
+            x[i] = diff / freq[i];
+
+            if (x[i] <= 0) {
+                ok = false;
+                break;
+            }
+
+            if (i > 0 && x[i] <= x[i - 1]) {
+                ok = false;
+                break;
+            }
+        }
+
+        if (!ok) {
+            cout << -1 << '\n';
+            continue;
+        }
+
+        if (k == 1) {
+            x[0] = 1;
+        } else {
+            x[k - 1] = x[k - 2] + 1;
+        }
+
+        if (x[k - 1] > (int64)1e18) {
+            cout << -1 << '\n';
+            continue;
+        }
+
+        map<int64, int64> value;
+
+        for (int i = 0; i < k; ++i)
+            value[vals[i]] = x[i];
+
+        for (int i = 0; i < n; ++i) {
+            if (i) cout << ' ';
+            cout << value[b[i]];
+        }
+        cout << '\n';
+    }
+
+    return 0;
+}
