@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n;
+        string s;
+        cin >> n >> s;
+
+        int cnt0 = count(s.begin(), s.end(), '0');
+        int cnt1 = n - cnt0;
+
+        if (abs(cnt0 - cnt1) > 2) {
+            cout << -1 << '\n';
+            continue;
+        }
+
+        int runs = 1;
+        for (int i = 1; i < n; i++) {
+            if (s[i] != s[i - 1])
+                runs++;
+        }
+
+        int keep0 = 0, keep1 = 0;
+        for (int i = 0; i < n; i++) {
+            if (i == 0 || s[i] != s[i - 1]) {
+                if (s[i] == '0')
+                    keep0++;
+                else
+                    keep1++;
+            }
+        }
+
+        int del0 = cnt0 - keep0;
+        int del1 = cnt1 - keep1;
+
+        if (abs(del0 - del1) <= 1) {
+            cout << n - runs << '\n';
+        } else {
+            cout << n - runs + 1 << '\n';
+        }
+    }
+
+    return 0;
+}
