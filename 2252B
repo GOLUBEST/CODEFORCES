@@ -13,38 +13,77 @@ int main() {
         string s;
         cin >> n >> s;
 
-        int cnt0 = count(s.begin(), s.end(), '0');
-        int cnt1 = n - cnt0;
+        int c0 = count(s.begin(), s.end(), '0');
+        int c1 = n - c0;
 
-        if (abs(cnt0 - cnt1) > 2) {
-            cout << -1 << '\n';
-            continue;
+        int dp[2][3];
+        for (int i = 0; i < 2; i++)
+            for (int j = 0; j < 3; j++)
+                dp[i][j] = -1;
+
+        int best[3] = {0, -1, -1};
+
+        for (char ch : s) {
+            int x = ch - '0';
+
+            int ndp[2][3];
+            memcpy(ndp, dp, sizeof(dp));
+
+            int diff = (x == 0 ? 1 : -1);
+            ndp[x][diff + 1] =
+                max(ndp[x][diff + 1], 1);
+
+            for (int last = 0; last < 2; last++) {
+                if (last == x) continue;
+
+                for (int d = -1; d <= 1; d++) {
+                    if (dp[last][d + 1] == -1) continue;
+
+                    int newDiff = d + (x == 0 ? 1 : -1);
+
+                    if (newDiff >= -1 && newDiff <= 1) {
+                        ndp[x][newDiff + 1] =
+                            max(ndp[x][newDiff + 1],
+                                dp[last][d + 1] + 1);
+                    }
+                }
+            }
+
+            memcpy(dp, ndp, sizeof(dp));
         }
 
-        int runs = 1;
-        for (int i = 1; i < n; i++) {
-            if (s[i] != s[i - 1])
-                runs++;
-        }
+        for (int d = -1; d <= 1; d++) {
+            best[d + 1] = 0;
 
-        int keep0 = 0, keep1 = 0;
-        for (int i = 0; i < n; i++) {
-            if (i == 0 || s[i] != s[i - 1]) {
-                if (s[i] == '0')
-                    keep0++;
-                else
-                    keep1++;
+            for (int last = 0; last < 2; last++) {
+                best[d + 1] =
+                    max(best[d + 1], dp[last][d + 1]);
             }
         }
 
-        int del0 = cnt0 - keep0;
-        int del1 = cnt1 - keep1;
+        int ans = INT_MAX;
 
-        if (abs(del0 - del1) <= 1) {
-            cout << n - runs << '\n';
-        } else {
-            cout << n - runs + 1 << '\n';
+        // d = r0 - r1
+        for (int d = -1; d <= 1; d++) {
+            int len = best[d + 1];
+
+            if (len == 0) continue;
+
+            int r0 = (len + d) / 2;
+            int r1 = len - r0;
+
+            int del0 = c0 - r0;
+            int del1 = c1 - r1;
+
+            if (del0 < 0 || del1 < 0)
+                continue;
+
+            if (abs(del0 - del1) <= 1) {
+                ans = min(ans, del0 + del1);
+            }
         }
+
+        cout << (ans == INT_MAX ? -1 : ans) << '\n';
     }
 
     return 0;
