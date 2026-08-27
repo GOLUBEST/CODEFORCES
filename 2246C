@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using int64 = long long;
+
+const int64 MOD = 1000000007LL;
+
+int64 modPow(int64 a, int64 e) {
+    int64 res = 1;
+    while (e > 0) {
+        if (e & 1) res = res * a % MOD;
+        a = a * a % MOD;
+        e >>= 1;
+    }
+    return res;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int T;
+    cin >> T;
+
+    while (T--) {
+        int n;
+        cin >> n;
+
+        vector<long long> a(n);
+        for (auto &x : a) cin >> x;
+
+        map<long long, int> freq;
+        for (long long x : a) freq[x]++;
+
+        int64 P = 1;
+
+        for (auto &[x, cnt] : freq) {
+            P = P * modPow(2, cnt - 1) % MOD;
+        }
+
+        int64 adjacent = 0;
+
+        for (auto &[x, cnt] : freq) {
+            if (x != -1 && freq.find(x + 1) != freq.end())
+                adjacent++;
+        }
+
+        int negCount = freq.count(-1) ? freq[-1] : 0;
+
+        int64 ans = P;
+
+        if (negCount > 0) {
+            ans = (ans + P * adjacent) % MOD;
+        }
+
+        cout << ans << '\n';
+    }
+
+    return 0;
+}
