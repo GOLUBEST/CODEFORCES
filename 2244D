@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+
+        vector<long long> a(n + 1);
+        vector<long long> pref(n + 1, 0);
+
+        for (int i = 1; i <= n; i++) {
+            cin >> a[i];
+            pref[i] = pref[i - 1] + a[i];
+        }
+
+        vector<int> b(m);
+        for (int i = 0; i < m; i++) {
+            cin >> b[i];
+        }
+
+        sort(b.rbegin(), b.rend());
+
+        long long total = pref[n];
+
+        long long dp0 = total;
+        long long dp1 = LLONG_MIN / 4;
+
+        for (int x : b) {
+            long long ndp0 = max(
+                dp0,
+                dp1 + 2LL * pref[x]
+            );
+
+            long long ndp1 = max(
+                dp1,
+                dp0 - 2LL * pref[x]
+            );
+
+            dp0 = ndp0;
+            dp1 = ndp1;
+        }
+
+        cout << max(dp0, dp1) << '\n';
+    }
+
+    return 0;
+}
