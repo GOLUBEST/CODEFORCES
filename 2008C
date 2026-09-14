@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        long long l, r;
+        cin >> l >> r;
+
+        long long d = r - l;
+
+        long long n = 1;
+        long long sum = 0;
+        
+        while (sum + n <= d) {
+            sum += n;
+            n++;
+        }
+
+        cout << n << '\n';
+    }
+
+    return 0;
+}
