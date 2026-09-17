@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using int64 = long long;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+
+        vector<int64> a(n);
+        for (auto &x : a) cin >> x;
+
+        priority_queue<int64> pq;
+        int64 sum = 0;
+        int64 ans = LLONG_MIN;
+
+        for (int j = 0; j < n; ++j) {
+            if ((int)pq.size() == m - 1) {
+                ans = max(ans, 1LL * m * a[j] - sum);
+            }
+
+            if (m > 1) {
+                pq.push(a[j]);
+                sum += a[j];
+
+                if ((int)pq.size() > m - 1) {
+                    sum -= pq.top();
+                    pq.pop();
+                }
+            }
+        }
+
+        cout << ans << '\n';
+    }
+
+    return 0;
+}
