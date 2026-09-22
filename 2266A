@@ -1,0 +1,16 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int chance;
+    cin >> chance;
+
+    while (chance--) {
+        int num, a, b, c;
+        cin >> num >> a >> b >> c;
+
+        cout << num - min({a, b, c}) << '\n';
+    }
+
+    return 0;
+}
