@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int num, x;
+        cin >> num >> x;
+
+        vector<int> a(num);
+        for (int i = 0; i < num; ++i)
+            cin >> a[i];
+
+        vector<int> divisors;
+
+        for (int d = 2; d * d <= x; ++d) {
+            if (x % d == 0) {
+                divisors.push_back(d);
+
+                if (d * d != x)
+                    divisors.push_back(x / d);
+            }
+        }
+
+        if (x > 1)
+            divisors.push_back(x);
+
+        long long ans = 0;
+
+        for (int d : divisors) {
+            long long cur = 0;
+
+            for (int value : a) {
+                if (value % d == 0)
+                    cur += value;
+            }
+
+            ans = max(ans, cur);
+        }
+
+        cout << ans << endl;
+    }
+
+    return 0;
+}
