@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n;
+        cin >> n;
+
+        vector<long long> a(n);
+        int zeroCount = 0;
+
+        for (auto &x : a) {
+            cin >> x;
+            if (x == 0) zeroCount++;
+        }
+
+        if (zeroCount == 1) {
+            cout << "NO\n";
+            continue;
+        }
+
+        cout << "YES\n";
+
+        string ans(n, 'C');
+
+        if (zeroCount >= 2) {
+            int firstZero = -1, secondZero = -1;
+
+            for (int i = 0; i < n; i++) {
+                if (a[i] == 0) {
+                    if (firstZero == -1)
+                        firstZero = i;
+                    else if (secondZero == -1) {
+                        secondZero = i;
+                        break;
+                    }
+                }
+            }
+
+            ans[firstZero] = 'A';
+            ans[secondZero] = 'B';
+        }
+
+        cout << ans << '\n';
+    }
+
+    return 0;
+}
