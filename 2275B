@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n;
+        string s;
+        cin >> n >> s;
+
+        vector<int> st;
+        vector<bool> printed(n + 1, false);
+
+        for (int i = 1; i <= n; i++) {
+            if (s[i - 1] == '1') {
+                st.push_back(i);
+            }
+            else if (s[i - 1] == '2') {
+                if (!st.empty()) {
+                    printed[st.back()] = true;
+                    st.pop_back();
+                }
+                else {
+                    printed[i] = true;
+                }
+            }
+            else {
+                printed[i] = true;
+            }
+        }
+
+        int missing = 0;
+
+        for (int i = 1; i <= n; i++) {
+            if (!printed[i])
+                missing++;
+        }
+
+        cout << missing << endl;
+
+        for (int i = 1; i <= n; i++) {
+            if (!printed[i])
+                cout << i << ' ';
+        }
+
+        cout << endl;
+    }
+
+    return 0;
+}
