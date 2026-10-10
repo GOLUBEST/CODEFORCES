@@ -1,0 +1,82 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+
+const ll INF = (1LL << 62);
+
+ll needed(ll a, ll b, ll c, ll target) {
+    ll sum = a + b + c;
+
+    if (sum >= target)
+        return 0;
+
+    if (a == b && b == c)
+        return INF;
+
+    if (a <= b && b <= c) {
+        ll d = min(b - a + 1, c - b + 1);
+        return target - sum + 2 * d;
+    }
+
+    return target - sum;
+}
+
+bool possible(ll target, const vector<array<ll, 3>>& labs, ll k) {
+    ll used = 0;
+
+    for (auto [a, b, c] : labs) {
+        ll cur = needed(a, b, c, target);
+
+        if (cur >= INF)
+            return false;
+
+        used += cur;
+
+        if (used > k)
+            return false;
+    }
+
+    return true;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n;
+        ll k;
+        cin >> n >> k;
+
+        vector<array<ll, 3>> labs(n);
+
+        ll low = INF, high = -INF;
+
+        for (auto &v : labs) {
+            cin >> v[0] >> v[1] >> v[2];
+
+            ll sum = v[0] + v[1] + v[2];
+            low = min(low, sum);
+            high = max(high, sum);
+        }
+
+        high += k;
+
+        while (low < high) {
+            ll mid = low + (high - low + 1) / 2;
+
+            if (possible(mid, labs, k))
+                low = mid;
+            else
+                high = mid - 1;
+        }
+
+        cout << low << endl;
+    }
+
+    return 0;
+}
