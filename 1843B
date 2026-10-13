@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int testCases;
+    cin >> testCases;
+
+    while (testCases--) {
+        int n;
+        cin >> n;
+
+        long long maxSum = 0;
+        int operations = 0;
+        bool inNegativeGroup = false;
+
+        for (int i = 0; i < n; i++) {
+            long long x;
+            cin >> x;
+
+            maxSum += abs(x);
+
+            if (x < 0) {
+                if (!inNegativeGroup) {
+                    operations++;
+                }
+                inNegativeGroup = true;
+            } else if (x > 0) {
+                inNegativeGroup = false;
+            }
+        }
+
+        cout << maxSum << " " << operations << endl;
+    }
+
+    return 0;
+}
