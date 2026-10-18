@@ -1,0 +1,59 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int ti;
+    cin >> ti;
+
+    while (ti--) {
+        int n;
+        cin >> n;
+
+        vector<int> a(n + 1);
+        for (int k = 1; k <= n; k++) {
+            cin >> a[k];
+        }
+
+        vector<int> diff(n + 1, 0);
+
+        // Mark every number that must not belong to B.
+        for (int k = 1; k <= n; k++) {
+            long long l = 1LL * a[k] * k;
+
+            if (l >= n) {
+                continue;
+            }
+
+            long long r = min(1LL * n - 1,
+                              (1LL * a[k] + 1) * k - 1);
+
+            diff[(int)l]++;
+            diff[(int)r + 1]--;
+        }
+
+        vector<int> b;
+        int active = 0;
+
+        // Include numbers that belong to no forbidden interval.
+        for (int x = 0; x < n; x++) {
+            active += diff[x];
+
+            if (active == 0) {
+                b.push_back(x);
+            }
+        }
+
+        cout << b.size() << endl;
+
+        for (int x : b) {
+            cout << x << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
