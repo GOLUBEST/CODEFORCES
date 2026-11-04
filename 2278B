@@ -1,0 +1,31 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve() {
+    int r, s, p;
+    cin >> r >> s >> p;
+
+    int n = r + s + p;
+
+    if (s >= p) {
+        cout << string(n, 'R') << endl;
+    }
+    else if (p >= r) {
+        cout << string(n, 'S') << endl;
+    }
+    else {
+        cout << string(n, 'P') << endl;
+    }
+}
+
+int main() {
+    int ti;
+    cin >> ti;
+
+    while (ti--) {
+        solve();
+    }
+
+    return 0;
+}
