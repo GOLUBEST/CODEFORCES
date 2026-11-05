@@ -1,0 +1,35 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve() {
+    int l, r;
+    cin >> l >> r;
+
+    long long n = r - l + 1;
+    long long total = 1LL * (l + r) * n / 2;
+
+    for (long long k = 1; k <= n; k++) {
+        long long minSum = k * (2LL * l + k - 1) / 2;
+        long long maxSum = k * (2LL * r - k + 1) / 2;
+
+        if (minSum <= total && total <= maxSum) {
+            cout << k - 1 << endl;
+            return;
+        }
+    }
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int ti;
+    cin >> ti;
+
+    while (ti--) {
+        solve();
+    }
+
+    return 0;
+}
