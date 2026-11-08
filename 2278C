@@ -1,0 +1,47 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve() {
+    int n;
+    cin >> n;
+
+    vector<int> a(n);
+    long long sum = 0;
+
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+        sum += a[i];
+    }
+
+    bool possible = (a[0] >= 2 || a[n - 1] >= 2);
+    bool internal = false;
+
+    for (int i = 1; i < n - 1; i++) {
+        if (a[i] >= 2) {
+            internal = true;
+            break;
+        }
+    }
+
+    if (internal) {
+        cout << sum - 1 << endl;
+    }
+    else if (possible) {
+        cout << sum - (n - 1) << endl;
+    }
+    else {
+        cout << -1 << endl;
+    }
+}
+
+int main() {
+    int ti;
+    cin >> ti;
+
+    while (ti--) {
+        solve();
+    }
+
+    return 0;
+}
