@@ -1,0 +1,39 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve() {
+    int n;
+    cin >> n;
+
+    vector<long long> a(n);
+
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+
+    sort(a.begin(), a.end());
+
+    long long median = a[n / 2];
+
+    long long cost = 0;
+
+    for (int i = 0; i < n; i++) {
+        cost += abs(a[i] - median);
+    }
+
+    long long operations = a[n - 1] - a[0];
+
+    cout << cost << " " << operations << endl;
+}
+
+int main() {
+    int ti;
+    cin >> ti;
+
+    while (ti--) {
+        solve();
+    }
+
+    return 0;
+}
