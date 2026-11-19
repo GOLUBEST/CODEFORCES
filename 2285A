@@ -1,0 +1,40 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve() {
+    int n;
+    cin >> n;
+
+    if (n < 4) {
+        cout << -1 << endl;
+        return;
+    }
+
+    vector<int> p(n + 1);
+
+    for (int i = 1; i <= n; i++) {
+        p[i] = i;
+    }
+
+    swap(p[1], p[4]);
+
+    for (int i = 1; i <= n; i++) {
+        cout << p[i] << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int ti;
+    cin >> ti;
+
+    while (ti--) {
+        solve();
+    }
+
+    return 0;
+}
